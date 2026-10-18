@@ -1,0 +1,11 @@
+{
+  "id": "margyt.bonesmash",
+  "name": "Bonesmash",
+  "name_ru": "Бонсмэшинг",
+  "version": "1.0",
+  "author": "Bonesmash plugin",
+  "description": "A hammer shows up on every profile. Smash the avatar three times and it comes out looksmaxxed: cheekbones, hollow cheeks, low body fat.",
+  "description_ru": "На любом профиле появляется молоток. Ударь по аватарке три раза, и она станет лукс-максед: скулы, впалые щёки, низкий процент жира.",
+  "entry": "pet.margyt.PetPlugin",
+  "min_api": 1
+}
