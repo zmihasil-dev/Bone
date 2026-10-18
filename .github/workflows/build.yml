@@ -1,0 +1,43 @@
+name: Build mtp
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: plugin
+
+      - uses: actions/checkout@v4
+        with:
+          repository: bodayse4real/TikYaicaTok
+          ref: main
+          path: margyt-src
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pack the plugin
+        run: |
+          mkdir -p margyt-src/examples/pet/java/pet/margyt
+          cp "$(ls plugin/manifest*.json | sort -V | tail -n1)" margyt-src/examples/pet/manifest.json
+          cp "$(ls plugin/icon*.png | sort -V | tail -n1)" margyt-src/examples/pet/icon.png
+          cp "$(ls plugin/PetPlugin*.java | sort -V | tail -n1)" margyt-src/examples/pet/java/pet/margyt/PetPlugin.java
+          cp "$(ls plugin/PetView*.java | sort -V | tail -n1)" margyt-src/examples/pet/java/pet/margyt/PetView.java
+          cd margyt-src
+          python3 -m margyt.plugin examples/pet
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: margyt-bonesmash
+          path: margyt-src/examples/pet/*.mtp
